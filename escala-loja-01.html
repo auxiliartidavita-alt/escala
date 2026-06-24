@@ -8,7 +8,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #1a1a2e;
+      background: #ffffff;
       display: flex;
       flex-direction: column;
       height: 100vh;
@@ -43,7 +43,6 @@
       position: relative;
       overflow: hidden;
     }
-    /* Cobre a linha "ESCALA LOJAS NOVA : LOJA 1" do Google Drive */
     .iframe-wrapper::after {
       content: '';
       position: absolute;
@@ -56,10 +55,10 @@
     }
     iframe {
       position: absolute;
-      top: 0;
+      top: -28px;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: calc(100% + 28px);
       border: none;
     }
   </style>
@@ -70,7 +69,7 @@
     <h1>Loja 01</h1>
   </header>
   <div class="iframe-wrapper">
-    <iframe src="https://drive.google.com/file/d/1HscQs-_oyRsJ4F9mEMa6xQZGm5-u89n6/preview"></iframe>
+    <iframe src="https://drive.google.com/file/d/1HscQs-_oyRsJ4F9mEMa6xQZGm5-u89n6/preview?rm=minimal"></iframe>
   </div>
 </body>
 </html>
