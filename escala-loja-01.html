@@ -22,7 +22,7 @@
       align-items: center;
       gap: 14px;
       flex-shrink: 0;
-      z-index: 10; /* Garante que o header fique por cima do iframe com zoom */
+      z-index: 10;
     }
     .badge {
       background: #0f3460;
@@ -40,31 +40,22 @@
       font-weight: 600;
     }
     
-    /* Container que vai esconder o botão "Outra janela" e as barras do Google */
     .sheet-container {
       flex: 1;
       position: relative;
-      overflow: hidden; /* Esconde tudo o que passar dos limites desta div */
+      overflow: hidden;
       background: #ffffff;
     }
 
-    /* O pulo do gato: Mascarar os controles e aplicar o Zoom */
     iframe {
       position: absolute;
-      
-      /* Empurra o topo e a direita para fora da área visível, sumindo com o botão */
       top: -40px; 
       right: -50px; 
-      
-      /* Redimensiona a área interna para compensar o zoom (escala) */
       width: 110%;
       height: 110%;
       border: none;
-
-      /* CONTROLADOR DE ZOOM: Altera o tamanho geral da tabela interna */
-      /* 1.15 significa 115% de zoom. Se quiser mais zoom, mude para 1.2 ou 1.3 */
       transform: scale(1.15);
-      transform-origin: top left; /* Mantém o zoom alinhado a partir do canto superior esquerdo */
+      transform-origin: top left;
     }
   </style>
 </head>
@@ -74,7 +65,7 @@
     <h1>Loja 01</h1>
   </header>
   <div class="sheet-container">
-    <iframe src="https://drive.google.com/file/d/1Trsjdyk6QLx-P31qXUr-w9mSyZc9BJ4p/preview"></iframe>
+    <iframe src="https://docs.google.com/viewer?url=https://drive.google.com/uc?id=1Trsjdyk6QLx-P31qXUr-w9mSyZc9BJ4p&embedded=true"></iframe>
   </div>
 </body>
 </html>
