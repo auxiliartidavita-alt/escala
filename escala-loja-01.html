@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <!--<title>Escala Loja 01</title>-->
+  <!--<title>Escala Loja 01</title>-->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -19,6 +19,29 @@
   </style>
 </head>
 <body>
-  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQEjXjGOcVhA0rewJeI6dfkgvEFTaxL8SOhpqeGM7Qzg_H-f8yv_KPr4Iw9cBXvs6pGnWSDTPtb9UFz/pubhtml?widget=true&amp;headers=false"></iframe>
+
+  <!-- Adicionei a ID aqui para o JavaScript encontrar o iframe -->
+  <iframe id="planilha-iframe"></iframe>
+
+  <script>
+    // Link da sua escala puxado do seu código original
+    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQEjXjGOcVhA0rewJeI6dfkgvEFTaxL8SOhpqeGM7Qzg_H-f8yv_KPr4Iw9cBXvs6pGnWSDTPtb9UFz/pubhtml?widget=true&headers=false"; 
+    
+    function carregarPlanilha() {
+        const iframe = document.getElementById('planilha-iframe');
+        const timestamp = new Date().getTime(); 
+        
+        // Como sua URL já tem "?", ele vai usar o "&" automaticamente para juntar o cache_bust
+        const separador = URL_DA_PLANILHA.includes('?') ? '&' : '?';
+        
+        iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
+    }
+
+    // Carrega a planilha assim que a página abre
+    carregarPlanilha();
+
+    // Atualiza de 15 em 15 minutos (900000 milissegundos)
+    setInterval(carregarPlanilha, 900000);
+  </script>
 </body>
 </html>
