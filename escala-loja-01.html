@@ -20,15 +20,14 @@
       left: 0;
       border: none;
       
-      /* VALORES FIXOS EM PIXELS: 
-         Em vez de %, definimos uma tela virtual gigante de 2560x1440.
-         Isso força o Google Sheets a renderizar tudo menor (alta resolução). */
-      width: 2560px;
-      height: 1440px;
+      /* TELA VIRTUAL 4K: 
+         Força o Google Sheets a mostrar o dobro de informações na tela */
+      width: 3840px;
+      height: 2160px;
       
-      /* Reduzimos o bloco inteiro de volta para caber em uma tela Full HD (1920x1080)
-         2560 * 0.75 = 1920 / 1440 * 0.75 = 1080 */
-      transform: scale(0.50);
+      /* ZOOM EM 50%: 
+         Esmaga os 3840px de volta para os 1920px da sua tela física */
+      transform: scale(0.5);
       transform-origin: top left;
     }
   </style>
