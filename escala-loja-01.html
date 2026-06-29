@@ -12,9 +12,10 @@
       overflow: hidden;
     }
     iframe {
+      border: none;
+      /* Mantemos 100% no CSS inicial para o quiosque aceitar abrir a janela normal */
       width: 100%;
       height: 100%;
-      border: none;
     }
   </style>
 </head>
@@ -23,21 +24,32 @@
   <iframe id="planilha-iframe"></iframe>
 
   <script>
-    /* MUDANÇA DE ESTRUTURA: 
-      Trocamos o '/pubhtml' pesado por '/htmlview?gid=0' (modo Grid).
-      Isso faz o próprio Google Sheets renderizar a tabela de forma mais compacta e limpa, 
-      o que deve fazer ela aparecer menor e sem os menus pesados dentro do freekiosk.
-    */
-    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/htmlview?gid=0"; 
+    // URL original funcionando 100% de forma limpa para o Google não barrar
+    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false"; 
     
     function carregarPlanilha() {
         const iframe = document.getElementById('planilha-iframe');
         const timestamp = new Date().getTime(); 
         const separador = URL_DA_PLANILHA.includes('?') ? '&' : '?';
+        
         iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
     }
 
+    // PULO DO GATO PARA O FREEKIOSK:
+    // Assim que o iframe carrega a página, o script força o motor interno do app a aplicar o zoom
+    // e compensa a largura e altura dinamicamente (100 / 0.75 = 134)
+    const iframe = document.getElementById('planilha-iframe');
+    iframe.onload = function() {
+        // Altere o 0.75 (75%) para o tamanho desejado (ex: 0.80 para 80%)
+        iframe.style.zoom = "0.75"; 
+        iframe.style.width = "134%";
+        iframe.style.height = "134%";
+    };
+
+    // Inicializa o processo
     carregarPlanilha();
+    
+    // Atualiza a cada 15 minutos
     setInterval(carregarPlanilha, 900000);
   </script>
 </body>
