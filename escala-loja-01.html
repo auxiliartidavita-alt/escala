@@ -2,8 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<title>Escala Loja 01</title>-->
+  <meta name="viewport" content="width=device-width, initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -12,6 +11,8 @@
       overflow: hidden;
     }
     iframe {
+      /* Como o zoom agora é aplicado na página inteira pelo viewport, 
+         o iframe pode voltar a ter 100% normal */
       width: 100vw;
       height: 100vh;
       border: none;
@@ -20,27 +21,19 @@
 </head>
 <body>
 
-  <!-- Adicionei a ID aqui para o JavaScript encontrar o iframe -->
   <iframe id="planilha-iframe"></iframe>
 
   <script>
-    // Link da sua escala puxado do seu código original
     const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false"; 
     
     function carregarPlanilha() {
         const iframe = document.getElementById('planilha-iframe');
         const timestamp = new Date().getTime(); 
-        
-        // Como sua URL já tem "?", ele vai usar o "&" automaticamente para juntar o cache_bust
         const separador = URL_DA_PLANILHA.includes('?') ? '&' : '?';
-        
         iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
     }
 
-    // Carrega a planilha assim que a página abre
     carregarPlanilha();
-
-    // Atualiza de 15 em 15 minutos (900000 milissegundos)
     setInterval(carregarPlanilha, 900000);
   </script>
 </body>
