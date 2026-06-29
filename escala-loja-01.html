@@ -20,14 +20,20 @@
       left: 0;
       border: none;
       
-      /* TELA VIRTUAL 4K: 
-         Força o Google Sheets a mostrar o dobro de informações na tela */
-      width: 3840px;
-      height: 2160px;
-      
-      /* ZOOM EM 50%: 
-         Esmaga os 3840px de volta para os 1920px da sua tela física */
-      transform: scale(0.7);
+      /* ==================================================================
+         AJUSTE DE TAMANHO PARA TELA 1920x1080
+         ==================================================================
+         Se quiser mudar o ajuste fino, troque as 3 linhas abaixo pelos valores:
+         
+         Para 65%: width: 2954px; height: 1662px; transform: scale(0.65);
+         Para 60%: width: 3200px; height: 1800px; transform: scale(0.6);
+         Para 55%: width: 3490px; height: 1963px; transform: scale(0.55);
+      */
+      width: 3096px;  
+      height: 1742px; 
+      transform: scale(0.62); 
+      /* ================================================================== */
+
       transform-origin: top left;
     }
   </style>
