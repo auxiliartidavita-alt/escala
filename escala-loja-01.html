@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=0.8, minimum-scale=0.8, maximum-scale=0.8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -11,10 +11,18 @@
       overflow: hidden;
     }
     iframe {
-      /* Com o viewport alterado, o iframe volta a ocupar 100% da tela "virtual" */
-      width: 100vw;
-      height: 100vh;
       border: none;
+      
+      /* PULO DO GATO (SOLUÇÃO 02):
+        Aplicamos o zoom direto no iframe. 
+        Como o zoom de 0.8 (80%) encolhe o elemento, precisamos compensar a largura e a altura
+        para que ele continue ocupando a tela cheia (100 / 0.8 = 125).
+      */
+      zoom: 0.8; 
+      -webkit-zoom: 0.8; /* Garante compatibilidade com motores WebKit antigos */
+      
+      width: 125vw;
+      height: 125vh;
     }
   </style>
 </head>
@@ -23,20 +31,4 @@
   <iframe id="planilha-iframe"></iframe>
 
   <script>
-    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false"; 
-    
-    function carregarPlanilha() {
-        const iframe = document.getElementById('planilha-iframe');
-        const timestamp = new Date().getTime(); 
-        const separador = URL_DA_PLANILHA.includes('?') ? '&' : '?';
-        iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
-    }
-
-    // Inicializa
-    carregarPlanilha();
-    
-    // Atualiza a cada 15 minutos
-    setInterval(carregarPlanilha, 900000);
-  </script>
-</body>
-</html>
+    const URL_DA_PLANILHA = "
