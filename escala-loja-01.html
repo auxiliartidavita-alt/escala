@@ -5,24 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html {
+      background: #1a1a2e;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
     body {
       background: #1a1a2e;
-      height: 100vh;
       overflow: hidden;
-    }
-    iframe {
-      border: none;
       
-      /* PULO DO GATO (SOLUÇÃO 02):
-        Aplicamos o zoom direto no iframe. 
-        Como o zoom de 0.8 (80%) encolhe o elemento, precisamos compensar a largura e a altura
-        para que ele continue ocupando a tela cheia (100 / 0.8 = 125).
-      */
+      /* PULO DO GATO: Força o zoom no BODY da página inteira. 
+         Usamos as duas propriedades juntas para garantir que o quiosque pegue uma delas. */
       zoom: 0.8; 
-      -webkit-zoom: 0.8; /* Garante compatibilidade com motores WebKit antigos */
-      
+      -webkit-zoom: 0.8;
+      transform: scale(0.8);
+      transform-origin: top left;
+
+      /* Como encolhemos o body para 80%, a área dele precisa crescer 
+         para cobrir a tela cheia do monitor (100 / 0.8 = 125) */
       width: 125vw;
       height: 125vh;
+    }
+
+    iframe {
+      /* Agora o iframe apenas segue o tamanho do body modificado */
+      width: 100%;
+      height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -40,10 +52,7 @@
         iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
     }
 
-    // Inicializa
     carregarPlanilha();
-    
-    // Atualiza a cada 15 minutos
     setInterval(carregarPlanilha, 900000);
   </script>
 </body>
