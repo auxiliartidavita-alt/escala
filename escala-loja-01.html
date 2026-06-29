@@ -6,23 +6,30 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    body, html {
+    html, body {
       background: #1a1a2e;
       height: 100vh;
       width: 100vw;
       overflow: hidden;
+      position: relative;
     }
 
-    /* O pulo do gato definitivo: 
-       Enganamos o motor do quiosque aplicando o estilo antigo de zoom direto na tag inline */
     iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
       border: none;
-      width: 134%;  /* Aumenta a área de renderização do Google */
-      height: 134%; /* Aumenta a área de renderização do Google */
       
-      /* Força o zoom a 75% usando CSS padrão que navegadores de TV e quiosque aceitam sem quebrar o link */
-      zoom: 0.75;
-      -webkit-zoom: 0.75;
+      /* VALORES FIXOS EM PIXELS: 
+         Em vez de %, definimos uma tela virtual gigante de 2560x1440.
+         Isso força o Google Sheets a renderizar tudo menor (alta resolução). */
+      width: 2560px;
+      height: 1440px;
+      
+      /* Reduzimos o bloco inteiro de volta para caber em uma tela Full HD (1920x1080)
+         2560 * 0.75 = 1920 / 1440 * 0.75 = 1080 */
+      transform: scale(0.75);
+      transform-origin: top left;
     }
   </style>
 </head>
