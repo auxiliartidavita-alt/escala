@@ -31,4 +31,20 @@
   <iframe id="planilha-iframe"></iframe>
 
   <script>
-    const URL_DA_PLANILHA = "
+    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false"; 
+    
+    function carregarPlanilha() {
+        const iframe = document.getElementById('planilha-iframe');
+        const timestamp = new Date().getTime(); 
+        const separador = URL_DA_PLANILHA.includes('?') ? '&' : '?';
+        iframe.src = URL_DA_PLANILHA + separador + "cache_bust=" + timestamp;
+    }
+
+    // Inicializa
+    carregarPlanilha();
+    
+    // Atualiza a cada 15 minutos
+    setInterval(carregarPlanilha, 900000);
+  </script>
+</body>
+</html>
