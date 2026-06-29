@@ -6,44 +6,49 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
-    html {
+    html, body {
       background: #1a1a2e;
       overflow: hidden;
       height: 100vh;
       width: 100vw;
     }
 
-    body {
-      background: #1a1a2e;
+    /* Container para travar o tamanho da tela cheia do Quiosque e sumir com bordas */
+    .kiosk-wrapper {
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      
-      /* PULO DO GATO: Força o zoom no BODY da página inteira. 
-         Usamos as duas propriedades juntas para garantir que o quiosque pegue uma delas. */
-      zoom: 0.8; 
-      -webkit-zoom: 0.8;
-      transform: scale(0.8);
-      transform-origin: top left;
-
-      /* Como encolhemos o body para 80%, a área dele precisa crescer 
-         para cobrir a tela cheia do monitor (100 / 0.8 = 125) */
-      width: 125vw;
-      height: 125vh;
+      position: relative;
     }
 
     iframe {
-      /* Agora o iframe apenas segue o tamanho do body modificado */
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
       border: none;
+
+      /* A SOLUÇÃO DEFINITIVA:
+        Aumentamos o tamanho "virtual" do frame para 130% para o Google Sheets 
+        renderizar mais colunas/linhas na mesma tela, e usamos o transform 
+        apenas para encaixar essa imagem de alta densidade de volta nos limites do app.
+      */
+      width: 130%;
+      height: 130%;
+      
+      transform: scale(0.77); /* Ajusta a proporção exata para sumir com as bordas pretas */
+      transform-origin: top left;
     }
   </style>
 </head>
 <body>
 
-  <iframe id="planilha-iframe"></iframe>
+  <div class="kiosk-wrapper">
+    <iframe id="planilha-iframe"></iframe>
+  </div>
 
   <script>
-    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false"; 
+    // Adicionei o parâmetro fzr=true (Freeze Rows/Render optimization) que ajuda o Sheets a recalcular o tamanho interno
+    const URL_DA_PLANILHA = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRid0TW5iKM2whYOHoYXnOza7CAmERYzUCtdoGl3rTI5oEfMrZ6wmburxRv2e2Xnw0zggE39Al19zib/pubhtml?widget=true&headers=false&fzr=true"; 
     
     function carregarPlanilha() {
         const iframe = document.getElementById('planilha-iframe');
