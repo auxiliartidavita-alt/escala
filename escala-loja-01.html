@@ -3,24 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--<title>Escala Loja 01</title>-->
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       background: #1a1a2e;
       height: 100vh;
       overflow: hidden;
+      position: relative;
     }
+    
     iframe {
-      width: 100vw;
-      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
       border: none;
+      
+      /* PULO DO GATO:
+         Para escala 0.8 (80%), a largura/altura precisam ser 125% (100 / 0.8)
+         Isso evita que fiquem faixas pretas ou vazias na tela.
+      */
+      width: 125vw;  
+      height: 125vh; 
+      
+      /* CONTROLADOR DE ZOOM: 0.8 significa 80% do tamanho original */
+      transform: scale(0.8); 
+      transform-origin: top left; /* Mantém o alinhamento no canto superior esquerdo */
     }
   </style>
 </head>
 <body>
 
-  <!-- Adicionei a ID aqui para o JavaScript encontrar o iframe -->
   <iframe id="planilha-iframe"></iframe>
 
   <script>
